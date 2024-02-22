@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -17,6 +18,8 @@ public class Menu {
         System.out.println("=== Menu ===");
         System.out.println("1. Créer un nouvel enregistrement ville");
         System.out.println("2. Lire un enregistrement ville");
+        System.out.println("10. lire tous  ville");
+        System.out.println("11. lire tous  HISTORIQUE");
         System.out.println("3. Mettre à jour un enregistrement ville");
         System.out.println("4. Supprimer un enregistrement ville");
         System.out.println("5. Créer un nouvel enregistrement historique");
@@ -56,7 +59,47 @@ public class Menu {
                 int cityIdToRead = scanner.nextInt();
                 city.readCityRecord(cityIdToRead);
                 break;
+            case 10:
+                try {
+                    ResultSet resultSet = city.readAllCities();
+                    while (resultSet.next()) {
+                        int CityId = resultSet.getInt("cityId");
+                        String CityName = resultSet.getString("cityName");
+                        int CurrentTemperature = resultSet.getInt("currentTemperature");
+                        int CurrentHumidity = resultSet.getInt("currentHumidity");
+                        int currentwindSpeed = resultSet.getInt("currentWindSpeed");
 
+                        System.out.println("City ID: " + CityId);
+                        System.out.println("City Name: " + CityName);
+                        System.out.println("Temperature: " + CurrentTemperature);
+                        System.out.println("Humidity: " + CurrentHumidity);
+                        System.out.println("Wind Speed: " + currentwindSpeed);
+                        System.out.println();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 11:
+                System.out.println("Enter city ID to view history:");
+                int CItyId = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+                try {
+                    ResultSet historyResultSet = cityHistory.readAllHistoryForCity(CItyId);
+                    while (historyResultSet.next()) {
+                        int historicalDataId = historyResultSet.getInt("historicalDataId");
+                        String eventDate = historyResultSet.getString("eventDate");
+                        int temperature = historyResultSet.getInt("temperature");
+
+                        System.out.println("Historical Data ID: " + historicalDataId);
+                        System.out.println("Event Date: " + eventDate);
+                        System.out.println("Temperature: " + temperature);
+                        System.out.println();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
             case 3:
                 System.out.print("ID de la ville à mettre à jour : ");
                 int cityIdToUpdate = scanner.nextInt();

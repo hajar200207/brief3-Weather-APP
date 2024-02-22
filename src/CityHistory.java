@@ -84,4 +84,10 @@ public class CityHistory {
             System.err.println("Erreur lors de la suppression de l'enregistrement historique : " + e.getMessage());
         }
     }
+    public ResultSet readAllHistoryForCity(int cityId) throws SQLException {
+        String query = "SELECT * FROM cityhistory WHERE cityId = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, cityId);
+        return statement.executeQuery();
+    }
 }

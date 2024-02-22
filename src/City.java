@@ -7,7 +7,13 @@ public class City {
     private double currentHumidity;
     private double currentWindSpeed;
     private Connection connection;
-
+    public City(int cityId, String cityName, int currentTemperature, int currentHumidity, int currentWindSpeed) {
+        this.cityId = cityId;
+        this.cityName = cityName;
+        this.currentTemperature = currentTemperature;
+        this.currentHumidity = currentHumidity;
+        this.currentWindSpeed = currentWindSpeed;
+    }
     // Constructeur
     public City(Connection connection) {
         this.connection = connection;
@@ -106,5 +112,10 @@ public class City {
         } catch (SQLException e) {
             System.err.println("Erreur lors de la suppression de l'enregistrement : " + e.getMessage());
         }
+    }
+    public ResultSet readAllCities() throws SQLException {
+        String query = "SELECT * FROM city";
+        PreparedStatement statement = connection.prepareStatement(query);
+        return statement.executeQuery();
     }
 }
