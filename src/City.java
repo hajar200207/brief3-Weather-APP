@@ -19,7 +19,6 @@ public class City {
         this.connection = connection;
     }
 
-    // Méthode pour créer un nouvel enregistrement ville dans la base de données
     public void createCityRecord(int cityId, String cityName, double currentTemperature, double currentHumidity, double currentWindSpeed) {
         try {
             String query = "INSERT INTO city (cityId, cityName, currentTemperature, currentHumidity, currentWindSpeed) VALUES (?, ?, ?, ?, ?)";
@@ -42,7 +41,6 @@ public class City {
         }
     }
 
-    // Méthode pour lire un enregistrement ville spécifique à partir de la base de données
     public void readCityRecord(int cityId) {
         try {
             String query = "SELECT * FROM city WHERE cityId = ?";
@@ -56,12 +54,13 @@ public class City {
                         double humidity = resultSet.getDouble("currentHumidity");
                         double windSpeed = resultSet.getDouble("currentWindSpeed");
 
-                        System.out.println("=== Information sur la ville ===");
+                        System.out.println(Menu.ANSI_GREEN+"======Information sur la ville======"+ Menu.ANSI_RESET);
                         System.out.println("ID : " + id);
                         System.out.println("Nom : " + name);
                         System.out.println("Température : " + temperature + " °C");
                         System.out.println("Humidité : " + humidity + "%");
                         System.out.println("Vitesse du vent : " + windSpeed + " km/h");
+                        System.out.println(Menu.ANSI_GREEN+"=====+++++++++++++++++++++++++++===="+ Menu.ANSI_RESET);
                     } else {
                         System.out.println("Aucun enregistrement trouvé pour l'ID : " + cityId);
                     }
@@ -72,7 +71,6 @@ public class City {
         }
     }
 
-    // Méthode pour mettre à jour les détails d'un enregistrement ville existant dans la base de données
     public void updateCityRecord(int cityId, String cityName, double currentTemperature, double currentHumidity, double currentWindSpeed) {
         try {
             String query = "UPDATE city SET cityName = ?, currentTemperature = ?, currentHumidity = ?, currentWindSpeed = ? WHERE cityId = ?";
@@ -95,7 +93,6 @@ public class City {
         }
     }
 
-    // Méthode pour supprimer un enregistrement ville spécifique de la base de données
     public void deleteCityRecord(int cityId) {
         try {
             String query = "DELETE FROM city WHERE cityId = ?";
