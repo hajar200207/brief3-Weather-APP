@@ -175,7 +175,6 @@ public class Menu {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
                 break;
             case 0:
                 System.out.println("Merci d'avoir utilisé notre application. Au revoir !");

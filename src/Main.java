@@ -17,7 +17,7 @@ public class Main {
                 menu.displayMenu();
                 int choice = menu.getUserChoice();
 
-                if (choice == 9) {
+                if (choice == 0) {
                     running = false;
                 } else {
                     menu.executeUserChoice(choice);
